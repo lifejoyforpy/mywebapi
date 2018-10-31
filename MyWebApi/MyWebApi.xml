@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyWebApi</name>
+    </assembly>
+    <members>
+        <member name="T:MyWebApi.Controllers.TestController">
+            <summary>  
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Controllers.TestController.#ctor(Microsoft.Extensions.Logging.ILogger{MyWebApi.Controllers.TestController})">
+            <summary>
+            constructor
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Controllers.TestController.Post(MyWebApiApplication.Dtos.ProductDto.ProductCreation)">
+            <summary>
+            product add
+            </summary>
+            <param name="product"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MyWebApi.Controllers.ValuesController">
+            <summary>
+            ValuesController
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Controllers.ValuesController.#ctor(Microsoft.Extensions.Logging.ILogger{MyWebApi.Controllers.ValuesController})">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Controllers.ValuesController.Get">
+            <summary>
+            GET api/values
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Controllers.ValuesController.Get(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MyWebApi.Controllers.ValuesController.Post(System.String)">
+            <summary>
+             POST api/values
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Controllers.ValuesController.Put(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:MyWebApi.Controllers.ValuesController.Delete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:MyWebApi.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:MyWebApi.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MyWebApi.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:MyWebApi.Startup.CURRENT_SWAGGER_OPTIONS">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:MyWebApi.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:MyWebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
