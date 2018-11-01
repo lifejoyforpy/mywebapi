@@ -1,6 +1,7 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -10,9 +11,12 @@ namespace MyWebApi.Core.EventBus
     public class EventBusIocManager
     {
         public readonly IWindsorContainer _container;
+
+        private ConcurrentDictionary<Type, List<Type>> _eventMapping;
         public EventBusIocManager()
         {
             _container = new WindsorContainer();
+            _eventMapping = _eventMapping??new ConcurrentDictionary<Type, List<Type>>();
         }
         /// <summary>
         /// 注册所有按照约定的事件和事件源绑定到容器里
@@ -22,10 +26,11 @@ namespace MyWebApi.Core.EventBus
         /// <param name="lifetime"></param>
         public void RegisterByConvention(IWindsorContainer container, Assembly assembly, Lifetime lifetime = Lifetime.Tansient)
         {
+            var basedOnDescriptor = Types.FromAssembly(assembly).BasedOn(typeof(IEventHandler<>)).WithService.AllInterfaces();
             switch (lifetime)
             {
                 case Lifetime.Tansient:
-                    container.Register(Types.FromAssembly(assembly).BasedOn(typeof(IEventHandler)).LifestyleTransient());
+                    container.Register(Types.FromAssembly(assembly).BasedOn(typeof(IEventHandler<>)).WithService.AllInterfaces().LifestyleTransient());
                     break;
                 case Lifetime.Scope:
                     container.Register(Types.FromAssembly(assembly).BasedOn(typeof(IEventHandler)).LifestyleScoped());
@@ -35,6 +40,7 @@ namespace MyWebApi.Core.EventBus
                     break;
             }
         }
+
         /// <summary>
         /// 手动绑定事件源和事件
         /// </summary>
