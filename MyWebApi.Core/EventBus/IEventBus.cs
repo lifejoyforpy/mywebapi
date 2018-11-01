@@ -1,6 +1,7 @@
 ﻿using MyWebApi.Core.EventBus.Handlers;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,23 @@ namespace MyWebApi.Core.EventBus
 {
     public interface IEventBus
     {
-     
+        void Register<TEventData>(IEventHandler eventHandler) where TEventData : IEventData;
+
+        void Register<TEventData>(Action<TEventData> action) where TEventData : IEventData;
+
+        void Register(Type eventType, Type handler);
+
+        void RegisterAllEventHandlerFromAssembly(Assembly assembly);
+
+        void UnRegister<TEventData>(Type handlerType) where TEventData : IEventData;
+
+        void UnRegisterAll<TEventData>() where TEventData : IEventData;
+
+        void Trigger<TEventData>(TEventData eventData) where TEventData : IEventData;
+        void Trigger<TEventData>(Type eventHandlerType, TEventData eventData) where TEventData : IEventData;
+
+        Task TriggerAsync<TEventData>(TEventData eventData) where TEventData : IEventData;
+
+        Task TriggerAsycn<TEventData>(Type eventHandlerType, TEventData eventData) where TEventData : IEventData;
     }
 }
