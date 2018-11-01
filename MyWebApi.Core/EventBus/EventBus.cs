@@ -130,6 +130,7 @@ namespace MyWebApi.Core.EventBus
                     {
                         if (eventHandler.GetType() == handlerType)
                         {
+
                           var  handler=  eventHandler as IEventHandler<IEventData>;
                             handler?.HandlerEvent(eventData);
                         }
