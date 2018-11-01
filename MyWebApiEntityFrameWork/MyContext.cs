@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyWebApi.Domain.Test;
 using MyWebApi.EntityFramework.EntityConfigurations;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace MyWebApi.EntityFramework
 {

@@ -1,5 +1,6 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using MyWebApi.Core.EventBus.Handlers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -24,21 +25,12 @@ namespace MyWebApi.Core.EventBus
         /// <param name="container"></param>
         /// <param name="assembly"></param>
         /// <param name="lifetime"></param>
-        public void RegisterByConvention(IWindsorContainer container, Assembly assembly, Lifetime lifetime = Lifetime.Tansient)
+        public void RegisterByConvention(IWindsorContainer container, Assembly assembly)
         {
-            var basedOnDescriptor = Types.FromAssembly(assembly).BasedOn(typeof(IEventHandler<>)).WithService.AllInterfaces();
-            switch (lifetime)
-            {
-                case Lifetime.Tansient:
-                    container.Register(Types.FromAssembly(assembly).BasedOn(typeof(IEventHandler<>)).WithService.AllInterfaces().LifestyleTransient());
-                    break;
-                case Lifetime.Scope:
-                    container.Register(Types.FromAssembly(assembly).BasedOn(typeof(IEventHandler)).LifestyleScoped());
-                    break;
-                default:
-                    container.Register(Types.FromAssembly(assembly).BasedOn(typeof(IEventHandler)).LifestyleSingleton());
-                    break;
-            }
+            //将IEventHandler注入到程序集
+            _container.Register(Classes.FromAssembly(assembly).BasedOn(typeof(IEventHandler<>)).WithService.Base());
+            //从ioc容易中获取所有注入的
+            _container.Kernel.GetAssignableHandlers(typeof(IEventHandler));
         }
 
         /// <summary>

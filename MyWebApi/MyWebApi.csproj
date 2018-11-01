@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyWebApi.Application\MyWebApi.Application.csproj" />
     <ProjectReference Include="..\MyWebApi.Core\MyWebApi.Core.csproj" />
+    <ProjectReference Include="..\MyWebApi.Domain\MyWebApi.Domain.csproj" />
     <ProjectReference Include="..\MyWebApi.Web.Core\MyWebApi.Web.Core.csproj" />
     <ProjectReference Include="..\MyWebApiEntityFrameWork\MyWebApi.EntityFramework.csproj" />
   </ItemGroup>

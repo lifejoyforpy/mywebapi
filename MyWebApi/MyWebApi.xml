@@ -13,7 +13,7 @@
             constructor
             </summary>
         </member>
-        <member name="M:MyWebApi.Controllers.TestController.Post(MyWebApiApplication.Dtos.ProductDto.ProductCreation)">
+        <member name="M:MyWebApi.Controllers.TestController.Post(MyWebApi.Application.Dtos.ProductDto.ProductCreation)">
             <summary>
             product add
             </summary>

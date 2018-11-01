@@ -6,6 +6,9 @@ using System.Text;
 
 namespace MyWebApi.Core.EventBus
 {
+    /// <summary>
+    /// 当前事件总线实现方式不支持生命周期，反射性能差。
+    /// </summary>
    public  class EventBusManager
     {
         private  ConcurrentDictionary<Type, List<Type>> _mappingDictionary;

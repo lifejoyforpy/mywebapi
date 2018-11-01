@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyWebApi.EntityFramework;
+using MyWebApi.EntityFramework.UnitOfWork;
 using MyWebApi.Web.Core.Logger;
 using MyWebApi.Web.Core.Swagger;
 using Serilog;
@@ -75,10 +76,12 @@ namespace MyWebApi
             //});
             //版本控制
 
-            //
+            //注入dbcontext
             services.AddDbContext<MyContext>(options=> {
                 options.UseSqlServer(Configuration.GetSection("connectionStrings:default").Value);
             });
+            //用扩展方法注入uow
+            services.AddUnitOfWork<MyContext>();
             services.AddMvcCore().AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
             services.AddApiVersioning(option =>
             {

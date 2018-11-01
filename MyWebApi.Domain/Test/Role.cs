@@ -16,13 +16,6 @@ namespace MyWebApi.Domain.Test
         /// </summary>
         public string RoleName { get; set; }
     }
-    public class RoleConfiguration : IEntityTypeConfiguration<Role>
-    {
-        public void Configure(EntityTypeBuilder<Role> builder)
-        {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.RoleName).IsRequired();
-        }
-    }
+   
 
 }
