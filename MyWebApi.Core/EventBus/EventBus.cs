@@ -81,13 +81,14 @@ namespace MyWebApi.Core.EventBus
                var interfaces=  handler.ComponentModel.Implementation.GetInterfaces();
                 foreach (var @interface in interfaces)
                 {
-                    if (typeof(IEventHandler).IsAssignableFrom(@interface))
+                    if (!typeof(IEventHandler).IsAssignableFrom(@interface))
                     {
                         continue;
                     }
 
                     var genericArgs = @interface.GetGenericArguments();
-                    this.Register(genericArgs[0], @interface);
+                    if(genericArgs.Length==1)
+                    this.Register(genericArgs[0], handler.ComponentModel.Implementation);
                 }
             }
 
@@ -131,7 +132,7 @@ namespace MyWebApi.Core.EventBus
                         if (eventHandler.GetType() == handlerType)
                         {
 
-                          var  handler=  eventHandler as IEventHandler<IEventData>;
+                          var  handler=  eventHandler as IEventHandler<TEventData>;
                             handler?.HandlerEvent(eventData);
                         }
                     }
