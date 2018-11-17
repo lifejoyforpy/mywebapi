@@ -135,7 +135,7 @@ namespace MyWebApi
          //    loggerFactory.AddSerilog();
             app.UseHttpsRedirection();
             // static file
-            
+            app.UseStaticFiles();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
