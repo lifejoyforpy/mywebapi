@@ -7,6 +7,7 @@
         <member name="T:MyWebApi.Controllers.TestController">
             <summary>  
             </summary>
+            
         </member>
         <member name="M:MyWebApi.Controllers.TestController.#ctor(Microsoft.Extensions.Logging.ILogger{MyWebApi.Controllers.TestController})">
             <summary>
@@ -18,6 +19,12 @@
             product add
             </summary>
             <param name="product"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MyWebApi.Controllers.TestController.Get">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="T:MyWebApi.Controllers.ValuesController">

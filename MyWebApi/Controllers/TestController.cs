@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyWebApi.Application.Dtos.ProductDto;
@@ -25,9 +22,10 @@ namespace MyWebApi.Controllers
     //500: Internal Server Error, 服务器发生了错误.
     /// <summary>  
     /// </summary>
+    /// 
     [Route("api/Test")]
     [ApiController]
-    
+    [Authorize]
     public class TestController : ControllerBase
     {
         private readonly  ILogger<TestController> _logger;
@@ -59,6 +57,15 @@ namespace MyWebApi.Controllers
             }
             //insert
             return CreatedAtRoute("", "", "'");
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("get")]
+        public IActionResult Get()
+        {
+            return Ok("AuthorizeServer");
         }
     }
 }

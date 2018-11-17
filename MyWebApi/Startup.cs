@@ -92,7 +92,15 @@ namespace MyWebApi
             });
             ////custom swagger
             //services.AddCustomSwagger(CURRENT_SWAGGER_OPTIONS);
-
+            //
+            services.AddMvcCore().AddAuthorization();
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http//localhost:5000";
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "Test";
+                });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -126,7 +134,8 @@ namespace MyWebApi
             //配置日志
          //    loggerFactory.AddSerilog();
             app.UseHttpsRedirection();
-
+            // static file
+            
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -142,6 +151,7 @@ namespace MyWebApi
             //app.UseCustomSwagger(CURRENT_SWAGGER_OPTIONS);
             //注意UseCors()要在UseMvc()之前
             //  app.UseCors("CorsTest");
+            app.UseAuthentication();
             app.UseStatusCodePages();
             app.UseMvc();
         }
