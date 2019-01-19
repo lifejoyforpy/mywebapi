@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using CorrelationId;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +19,7 @@ using MyWebApi.EntityFramework.UnitOfWork;
 using MyWebApi.Web.Core.Logger;
 using MyWebApi.Web.Core.Swagger;
 using Serilog;
+using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyWebApi
@@ -112,7 +114,14 @@ namespace MyWebApi
             //日志
             services.AddLogging(loggingBuilder =>
             loggingBuilder.AddSerilog(dispose: true));
+            //请求id
+            services.AddCorrelationId();
+            services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>((options) =>
+            {    
 
+                    Configuration["redisConnectStirng"].ToString();
+                return 
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,6 +132,8 @@ namespace MyWebApi
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCorrelationId();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
