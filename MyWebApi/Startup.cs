@@ -116,12 +116,12 @@ namespace MyWebApi
             loggingBuilder.AddSerilog(dispose: true));
             //请求id
             services.AddCorrelationId();
-            services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>((options) =>
-            {    
+            //services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>((options) =>
+            //{    
 
-                    Configuration["redisConnectStirng"].ToString();
-                return 
-            });
+            //        Configuration["redisConnectStirng"].ToString();
+            //    //return 
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
