@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MyWebApi.Core.RedisQueue;
 using MyWebApi.EntityFramework;
 using MyWebApi.EntityFramework.UnitOfWork;
 using MyWebApi.Web.Core.Logger;
@@ -57,13 +58,13 @@ namespace MyWebApi
         /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _Configuration = configuration;
           //  SerilogConfiguration.CreateLogger();
         }
         /// <summary>
         /// 
         /// </summary>
-        public IConfiguration Configuration { get; }
+        public IConfiguration _Configuration { get; }
         /// <summary>
         /// 
         /// </summary>
@@ -80,7 +81,7 @@ namespace MyWebApi
 
             //注入dbcontext
             services.AddDbContext<MyContext>(options=> {
-                options.UseSqlServer(Configuration.GetSection("connectionStrings:default").Value);
+                options.UseSqlServer(_Configuration.GetSection("connectionStrings:default").Value);
             });
             //用扩展方法注入uow
             services.AddUnitOfWork<MyContext>();
@@ -116,12 +117,13 @@ namespace MyWebApi
             loggingBuilder.AddSerilog(dispose: true));
             //请求id
             services.AddCorrelationId();
-            //services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>((options) =>
-            //{    
-
-            //        Configuration["redisConnectStirng"].ToString();
-            //    //return 
-            //});
+            services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>((options) =>
+            {
+                var configString = _Configuration.GetSection("RedisConfig:default").Value;           
+                return ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(configString));
+            });
+            //基于托管的后台任务的redis队列
+            services.AddHostedService<RedisListener>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

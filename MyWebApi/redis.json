@@ -1,0 +1,8 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=_CHANGE_ME;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "RedisConfig": {
+    "default": "redis0:6380,redis1:6380,allowAdmin=true,Password=,KeepAlive=180"
+  }
+}

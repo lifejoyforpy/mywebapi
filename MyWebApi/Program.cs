@@ -54,6 +54,12 @@ namespace MyWebApi
         /// <returns></returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((hostingContext,config)=> {
+                //add redis config
+                config
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("redis.json", false, true);
+            })
             .UseUrls("https://0.0.0.0:5001")
                 .UseStartup<Startup>()
                 .UseSerilog();
