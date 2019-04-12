@@ -1,0 +1,8 @@
+{
+  "consulConfig": {
+    "Address": "http://10.52.27.147:8500",
+    "ServiceName": "mywebapi",
+    "ServiceId": "webapi01"
+  }
+
+}

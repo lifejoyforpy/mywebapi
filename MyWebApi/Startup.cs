@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MyWebApi.Core.ConsulExtension;
 using MyWebApi.Core.RedisQueue;
 using MyWebApi.EntityFramework;
 using MyWebApi.EntityFramework.UnitOfWork;
@@ -95,7 +97,8 @@ namespace MyWebApi
             });
             ////custom swagger
             //services.AddCustomSwagger(CURRENT_SWAGGER_OPTIONS);
-            //
+      
+
             services.AddMvcCore().AddAuthorization();
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -117,13 +120,17 @@ namespace MyWebApi
             loggingBuilder.AddSerilog(dispose: true));
             //请求id
             services.AddCorrelationId();
-            services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>((options) =>
-            {
-                var configString = _Configuration.GetSection("RedisConfig:default").Value;           
-                return ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(configString));
+            //
+            services.AddConsulConfig(_Configuration, "consulConfig").AddConsul(config=> {
+                config.Address = new Uri (_Configuration["consulConfig:Address"]);              
             });
-            //基于托管的后台任务的redis队列
-            services.AddHostedService<RedisListener>();
+            //services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>((options) =>
+            //{
+            //    var configString = _Configuration.GetSection("RedisConfig:default").Value;           
+            //    return ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(configString));
+            //});
+            ////基于托管的后台任务的redis队列
+            //services.AddHostedService<RedisListener>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -132,10 +139,11 @@ namespace MyWebApi
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        /// <param name="applicationLifetime"></param>
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IApplicationLifetime applicationLifetime)
         {
             app.UseCorrelationId();
-
+            app.RegisterConsul(applicationLifetime);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -151,12 +159,14 @@ namespace MyWebApi
             app.UseStaticFiles();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
+            
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                //c.InjectJavascript("/swagger/ui/swagger-ui.js");
+                c.InjectStylesheet("/swagger/ui/custom.css");
             });
             //custom swagger
             //自动检测存在的版本

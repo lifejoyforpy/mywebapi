@@ -58,10 +58,11 @@ namespace MyWebApi
                 //add redis config
                 config
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("redis.json", false, true);
-            })
-            .UseUrls("https://0.0.0.0:5001")
-                .UseStartup<Startup>()
+                .AddJsonFile("redis.json", false, true)
+                .AddJsonFile("consul.json",false,true);
+                
+            }).UseUrls("http://*:50001").
+            UseStartup<Startup>()
                 .UseSerilog();
     }
 }

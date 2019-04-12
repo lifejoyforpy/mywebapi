@@ -21,8 +21,7 @@ namespace UnitTest
         public UnitTest1()
         {
             eventBus = EventBus.Default;
-            eventBus.RegisterAllEventHandlerFromAssembly(Assembly.GetExecutingAssembly());
-           
+            eventBus.RegisterAllEventHandlerFromAssembly(Assembly.GetExecutingAssembly());         
 
         }
         [Fact]

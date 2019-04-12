@@ -4,6 +4,17 @@
         <name>MyWebApi</name>
     </assembly>
     <members>
+        <member name="T:MyWebApi.Controllers.HealthController">
+            <summary>
+            健康检测
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Controllers.HealthController.Status">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:MyWebApi.Controllers.TestController">
             <summary>  
             </summary>
@@ -22,6 +33,12 @@
             <returns></returns>
         </member>
         <member name="M:MyWebApi.Controllers.TestController.Get">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MyWebApi.Controllers.TestController.GetIp(System.Net.NetworkInformation.NetworkInterfaceType)">
             <summary>
             
             </summary>
@@ -101,7 +118,7 @@
             </summary>
             <param name="configuration"></param>
         </member>
-        <member name="P:MyWebApi.Startup.Configuration">
+        <member name="P:MyWebApi.Startup._Configuration">
             <summary>
             
             </summary>
@@ -112,12 +129,13 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="M:MyWebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:MyWebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.AspNetCore.Hosting.IApplicationLifetime)">
             <summary>
             
             </summary>
             <param name="app"></param>
             <param name="env"></param>
+            <param name="applicationLifetime"></param>
         </member>
     </members>
 </doc>

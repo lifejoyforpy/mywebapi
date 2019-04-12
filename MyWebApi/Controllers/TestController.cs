@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyWebApi.Application.Dtos.ProductDto;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace MyWebApi.Controllers
 {
@@ -66,6 +68,22 @@ namespace MyWebApi.Controllers
         public IActionResult Get()
         {
             return Ok("AuthorizeServer");
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("get/ip")]
+        [AllowAnonymous]
+        public IActionResult GetIp(NetworkInterfaceType type)
+        {
+            var netwrokInterfaces=  NetworkInterface.GetAllNetworkInterfaces();
+            foreach (NetworkInterface network in netwrokInterfaces)
+            {
+                
+
+            }
+            return new  BadRequestResult();
         }
     }
 }
