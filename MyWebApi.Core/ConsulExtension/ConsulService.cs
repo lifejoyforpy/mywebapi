@@ -2,15 +2,16 @@
 using System;
 using Consul;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Hosting;
+
 using MyWebApi.Core.Utility;
 using System.Net.NetworkInformation;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.Extensions.Hosting;
 
 namespace MyWebApi.Core.ConsulExtension
 {
@@ -59,17 +60,18 @@ namespace MyWebApi.Core.ConsulExtension
             ));      
             return services;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="app"></param>
-        /// <returns></returns>
-        public static IApplicationBuilder RegisterConsul(this IApplicationBuilder app,IApplicationLifetime applicationLifetime)
+         /// <summary>
+         /// 
+         /// </summary>
+         /// <param name="app"></param>
+         /// <param name="applicationLifetime"></param>
+         /// <returns></returns>
+        public static IApplicationBuilder RegisterConsul(this IApplicationBuilder app, IHostApplicationLifetime  applicationLifetime)
         {
             //获取server ip address 指定ip和端口的才可以获取
             var features = app.Properties["server.Features"] as FeatureCollection;
-            var addresses = features.Get<IServerAddressesFeature>();
-            var address = addresses.Addresses.First();
+            var addresses = features?.Get<IServerAddressesFeature>();
+            var address = addresses?.Addresses.First();
             //建立连接的client
             
             var ip= IpExtensions.GetLocalIPv4(NetworkInterfaceType.Wireless80211);

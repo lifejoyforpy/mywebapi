@@ -1,28 +1,20 @@
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
+
 using System.Reflection;
-using System.Threading.Tasks;
+
 using CorrelationId;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 using MyWebApi.Core.ConsulExtension;
-using MyWebApi.Core.RedisQueue;
 using MyWebApi.EntityFramework;
 using MyWebApi.EntityFramework.UnitOfWork;
-using MyWebApi.Web.Core.Logger;
 using MyWebApi.Web.Core.Swagger;
 using Serilog;
-using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyWebApi
@@ -36,7 +28,7 @@ namespace MyWebApi
         private CustsomSwaggerOptions CURRENT_SWAGGER_OPTIONS=new CustsomSwaggerOptions()
         {
 
-            ProjectName = "Mywebapi接口",
+                ProjectName = "Mywebapi接口",
                 ApiVersions = new string[] { "v1", "v2" },//要显示的版本
                 UseCustomIndex = true,
                 RoutePrefix = "swagger",
@@ -74,7 +66,7 @@ namespace MyWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options => { options.EnableEndpointRouting = false; });
             //添加返回结果xml格式
             //.AddMvcOptions(options=> {
             //    options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
@@ -140,7 +132,7 @@ namespace MyWebApi
         /// <param name="app"></param>
         /// <param name="env"></param>
         /// <param name="applicationLifetime"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IHostApplicationLifetime applicationLifetime)
         {
             app.UseCorrelationId();
             app.RegisterConsul(applicationLifetime);

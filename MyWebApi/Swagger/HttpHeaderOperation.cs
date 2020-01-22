@@ -9,10 +9,17 @@ using System.Threading.Tasks;
 
 namespace MyWebApi.Swagger
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class HttpHeaderOperation : IOperationFilter
     {
         private MethodInfo actionAttr;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="context"></param>
         public void Apply(Operation operation, OperationFilterContext context)
         {
             if (operation.Parameters == null)

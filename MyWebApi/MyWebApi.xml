@@ -129,13 +129,25 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="M:MyWebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.AspNetCore.Hosting.IApplicationLifetime)">
+        <member name="M:MyWebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Hosting.IHostApplicationLifetime)">
             <summary>
             
             </summary>
             <param name="app"></param>
             <param name="env"></param>
             <param name="applicationLifetime"></param>
+        </member>
+        <member name="T:MyWebApi.Swagger.HttpHeaderOperation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Swagger.HttpHeaderOperation.Apply(Swashbuckle.AspNetCore.Swagger.Operation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
         </member>
     </members>
 </doc>

@@ -17,9 +17,9 @@ namespace MyWebApi.Core.EventBus
     {
         private IEventBus eventBus;
         private ConcurrentDictionary<Type, List<Type>> _handlerDict;
-        //public EventBusInstall()
-        //{
-        //    _handlerDict=
+                                   //public EventBusInstall()
+                                   //{
+                                   //    _handlerDict=
         //}
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
