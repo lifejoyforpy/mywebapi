@@ -142,7 +142,7 @@
             
             </summary>
         </member>
-        <member name="M:MyWebApi.Swagger.HttpHeaderOperation.Apply(Swashbuckle.AspNetCore.Swagger.Operation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+        <member name="M:MyWebApi.Swagger.HttpHeaderOperation.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
             <summary>
             
             </summary>

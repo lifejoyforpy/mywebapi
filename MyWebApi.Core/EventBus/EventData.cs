@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,11 +8,11 @@ namespace MyWebApi.Core.EventBus
     {
         public string EventId { get ; set ; }
         public object EventSource { get; set ; }
-        public DateTime EventTime { get ; set ; }
+        public DateTimeOffset EventTime { get ; set ; }
 
         public EventData()
         {
-            EventTime = DateTime.Now;
+            EventTime =DateTime.UtcNow ;
         }
     }
 }

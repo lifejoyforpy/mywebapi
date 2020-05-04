@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using MyWebApi.Core.ConsulExtension;
 using MyWebApi.EntityFramework;
 using MyWebApi.EntityFramework.UnitOfWork;
@@ -79,7 +80,7 @@ namespace MyWebApi
             });
             //用扩展方法注入uow
             services.AddUnitOfWork<MyContext>();
-            services.AddMvcCore().AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
+            services.AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
             services.AddApiVersioning(option =>
             {
                 // allow a client to call you without specifying an api version
@@ -102,7 +103,7 @@ namespace MyWebApi
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
             //添加Cors，并配置CorsPolicy 
             services.AddCors(options => options.AddPolicy("CorsTest", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));

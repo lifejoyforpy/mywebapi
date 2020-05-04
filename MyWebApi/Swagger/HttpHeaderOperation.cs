@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
@@ -15,20 +16,23 @@ namespace MyWebApi.Swagger
     public class HttpHeaderOperation : IOperationFilter
     {
         private MethodInfo actionAttr;
+       
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="operation"></param>
         /// <param name="context"></param>
-        public void Apply(Operation operation, OperationFilterContext context)
+
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             if (operation.Parameters == null)
             {
-                operation.Parameters = new List<IParameter>();
+                operation.Parameters = new List<OpenApiParameter>();
             }
-             
+
             context.ApiDescription.TryGetMethodInfo(out actionAttr);
-            var isNeedAuthroized=  actionAttr.GetCustomAttributes().Any(a => a.GetType() == typeof(AuthorizeAttribute));
+            var isNeedAuthroized = actionAttr.GetCustomAttributes().Any(a => a.GetType() == typeof(AuthorizeAttribute));
         }
     }
 }
