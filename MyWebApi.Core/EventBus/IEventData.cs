@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
+
 
 namespace MyWebApi.Core.EventBus
 {
@@ -21,6 +20,6 @@ namespace MyWebApi.Core.EventBus
         /// </summary>
         object EventSource { get; set; }
 
-        DateTime EventTime { get; set; }
+        DateTimeOffset EventTime { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System;
 using Consul;
 using Microsoft.AspNetCore.Builder;
@@ -66,7 +66,7 @@ namespace MyWebApi.Core.ConsulExtension
          /// <param name="app"></param>
          /// <param name="applicationLifetime"></param>
          /// <returns></returns>
-        public static IApplicationBuilder RegisterConsul(this IApplicationBuilder app, IHostApplicationLifetime  applicationLifetime)
+        public static IApplicationBuilder RegisterConsul(this IApplicationBuilder app, IHostApplicationLifetime applicationLifetime)
         {
             //获取server ip address 指定ip和端口的才可以获取
             var features = app.Properties["server.Features"] as FeatureCollection;
