@@ -69,7 +69,8 @@ namespace MyWebApi.Core.EventBus
 
 
                     }
-                    await Task.Delay(50, stoppingToken);
+                    //  await Task.Delay(50, stoppingToken);
+                    await  Task.Yield();
                 }
             
             }
