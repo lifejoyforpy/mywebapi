@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
@@ -12,11 +13,11 @@ namespace MyWebApi.Web.Core.Swagger
     /// </summary>
     public class SwaggerDefaultValueFilter : IOperationFilter
     {
-        public void Apply(Operation operation, OperationFilterContext context)
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             // REF: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/412
             // REF: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/pull/413
-            foreach (var parameter in operation.Parameters.OfType<NonBodyParameter>())
+            foreach (var parameter in operation.Parameters.OfType<OpenApiParameter>())
             {
                 var description = context.ApiDescription.ParameterDescriptions.FirstOrDefault(p => p.Name == parameter.Name);
                 if (description == null)
@@ -29,10 +30,12 @@ namespace MyWebApi.Web.Core.Swagger
                 if (description.RouteInfo != null)
                 {
                     parameter.Required |= !description.RouteInfo.IsOptional;
-                    if (parameter.Default == null)
-                        parameter.Default = description.RouteInfo.DefaultValue;
+                    //if (parameter.Example == null)
+                    //    parameter.Example = description.RouteInfo.DefaultValue;
                 }
             }
         }
+
+      
     }
 }

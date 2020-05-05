@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyWebApi.Core.EventBus
 {
-    public class EventData : IEventData
+    public class EventData 
     {
         public string EventId { get ; set ; }
         public object EventSource { get; set ; }

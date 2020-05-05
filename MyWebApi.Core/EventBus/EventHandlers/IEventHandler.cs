@@ -14,8 +14,23 @@ namespace MyWebApi.Core.EventBus
     }
 
 
-    public interface IEventHanlder<in TEvent> where TEvent:EventData
+    public interface IEventHanlder<in TEvent>:IEventHandler where TEvent:EventData
     {
         Task Hanlder(TEvent @event);
+    }
+
+    public class EventHanlderBase<TEvent> : IEventHanlder<TEvent> where TEvent : EventData
+    {
+        public virtual Task Hanlder(TEvent @event)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task Hanlder(IEventData @event)
+        {
+            return Hanlder(@event as TEvent);
+        }
+
+       
     }
 }

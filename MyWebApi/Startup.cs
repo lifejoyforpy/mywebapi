@@ -13,8 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MyWebApi.Core.ConsulExtension;
 using MyWebApi.Core.EventBus;
-using MyWebApi.Core.EventBus.EventQueue;
-using MyWebApi.Core.EventBus.EventStore;
+
 using MyWebApi.EntityFramework;
 using MyWebApi.EntityFramework.UnitOfWork;
 using MyWebApi.Web.Core.Swagger;
@@ -70,7 +69,7 @@ namespace MyWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options => { options.EnableEndpointRouting = false; });
+            services.AddControllers();
             //添加返回结果xml格式
             //.AddMvcOptions(options=> {
             //    options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
@@ -83,26 +82,26 @@ namespace MyWebApi
             });
             //用扩展方法注入uow
             services.AddUnitOfWork<MyContext>();
-            services.AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
-            services.AddApiVersioning(option =>
-            {
-                // allow a client to call you without specifying an api version
-                // since we haven't configured it otherwise, the assumed api version will be 1.0
-                option.AssumeDefaultVersionWhenUnspecified = true;
-                option.ReportApiVersions = false;
-            });
+            //services.AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
+            //services.AddApiVersioning(option =>
+            //{
+            //    // allow a client to call you without specifying an api version
+            //    // since we haven't configured it otherwise, the assumed api version will be 1.0
+            //    option.AssumeDefaultVersionWhenUnspecified = true;
+            //    option.ReportApiVersions = false;
+            //});
             ////custom swagger
             //services.AddCustomSwagger(CURRENT_SWAGGER_OPTIONS);
       
 
-            services.AddMvcCore().AddAuthorization();
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.Authority = "http//localhost:5000";
-                    options.RequireHttpsMetadata = false;
-                    options.ApiName = "Test";
-                });
+            //services.AddMvcCore().AddAuthorization();
+            //services.AddAuthentication("Bearer")
+            //    .AddIdentityServerAuthentication(options =>
+            //    {
+            //        options.Authority = "http//localhost:5000";
+            //        options.RequireHttpsMetadata = false;
+            //        options.ApiName = "Test";
+            //    });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -112,8 +111,8 @@ namespace MyWebApi
             services.AddCors(options => options.AddPolicy("CorsTest", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             //日志
-            services.AddLogging(loggingBuilder =>
-            loggingBuilder.AddSerilog(dispose: true));
+            //services.AddLogging(loggingBuilder =>
+            //loggingBuilder.AddSerilog(dispose: true));
             //请求id
             services.AddCorrelationId();
             //
@@ -129,7 +128,7 @@ namespace MyWebApi
             //services.AddHostedService<RedisListener>();
 
             #region eventbus
-            services.AddEventBus();
+           // services.AddEventBus();
             #endregion
         }
 
@@ -143,20 +142,18 @@ namespace MyWebApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IHostApplicationLifetime applicationLifetime)
         {
             app.UseCorrelationId();
-            app.RegisterConsul(applicationLifetime);
+           //  app.RegisterConsul(applicationLifetime);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
+           
             //配置日志
          //    loggerFactory.AddSerilog();
             app.UseHttpsRedirection();
             // static file
             app.UseStaticFiles();
+            app.UseRouting();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
             
@@ -174,9 +171,12 @@ namespace MyWebApi
             //app.UseCustomSwagger(CURRENT_SWAGGER_OPTIONS);
             //注意UseCors()要在UseMvc()之前
             //  app.UseCors("CorsTest");
-            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseStatusCodePages();
-            app.UseMvc();
+            app.UseEndpoints(endPoints =>
+            {
+                endPoints.MapControllers();
+            });
         }
     }
 }

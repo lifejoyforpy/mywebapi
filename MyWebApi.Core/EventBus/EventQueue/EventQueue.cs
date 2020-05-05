@@ -26,7 +26,7 @@ namespace MyWebApi.Core.EventBus.EventQueue
         /// <param name="queueName"></param>
         /// <param name="event"></param>
 
-        public bool TryDeQueue<TEvent>(string queueName, out EventData @event)
+        public bool TryDeQueue(string queueName, out EventData @event)
         {
             var queue = _eventQueues.GetOrAdd(queueName, q => new ConcurrentQueue<EventData>());
             return   queue.TryDequeue(out @event);

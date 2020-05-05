@@ -40,14 +40,14 @@ namespace MyWebApi.Core.EventBus
                             try
                             {
                                 await semaphore.WaitAsync(stoppingToken);
-                                if (_eventQueue.TryDeQueue<EventData>(_queueKey, out var @event))
+                                if (_eventQueue.TryDeQueue(_queueKey, out var @event))
                                 {
                                     var handler = _eventStore.GetEventHanlder(@event, _serviceProvider);
                                     if (handler is IEventHandler eventHanlder)
                                     {
                                         try
                                         {
-                                            await eventHanlder.Hanlder(@event);
+                                            await eventHanlder.Hanlder(@event as IEventData);
                                         }
                                         catch (Exception e)
                                         {
@@ -69,16 +69,13 @@ namespace MyWebApi.Core.EventBus
 
 
                     }
+                    await Task.Delay(50, stoppingToken);
                 }
             
             }
         }
 
 
-        private Task Handler(string queueName)
-        {
-          
-            return Task.CompletedTask;
-        }
+       
     }
 }

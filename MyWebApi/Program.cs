@@ -11,7 +11,7 @@ using Serilog;
 using Serilog.Events;
 
 namespace MyWebApi
-{  
+{
     /// <summary>
     /// 
     /// </summary>
@@ -34,18 +34,18 @@ namespace MyWebApi
             {
                 Log.Information("Starting web host");
                 CreateWebHostBuilder(args).Build().Run();
-               // return 0;
+                // return 0;
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "Host terminated unexpectedly");
-              //   return 1;
+                //   return 1;
             }
             finally
             {
                 Log.CloseAndFlush();
             }
-          
+
         }
         /// <summary>
         /// 
@@ -54,15 +54,15 @@ namespace MyWebApi
         /// <returns></returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext,config)=> {
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
                 //add redis config
                 config
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("redis.json", false, true)
-                .AddJsonFile("consul.json",false,true);
-                
-            }).UseUrls("http://*:50001").
-            UseStartup<Startup>()
-                .UseSerilog();
+                .AddJsonFile("consul.json", false, true);
+
+            }).UseUrls("http://*:50001")
+            .UseStartup<Startup>();
     }
 }

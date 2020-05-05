@@ -17,6 +17,11 @@ namespace MyWebApi.Core.EventBus
     public class EventPublish : IEventPublish
     {
         private readonly EventQueue.EventQueue _eventQueue;
+
+        public EventPublish(EventQueue.EventQueue eventQueue)
+        {
+            _eventQueue = eventQueue;
+        }
         /// <summary>
         ///  publish a event into a queue
         /// </summary>

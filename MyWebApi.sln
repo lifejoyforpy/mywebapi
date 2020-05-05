@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWebApi", "MyWebApi\MyWebApi.csproj", "{40EEE637-E3FF-4E29-8A7A-C7B831C81B9D}"
 EndProject
@@ -24,7 +24,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{BBC4054D-94AE-469C-BB5B-ED2575EA2FC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizeServer", "AuthorizeServer\AuthorizeServer.csproj", "{EB21710C-AE5A-4C93-BEB1-522489F5D4BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizeServer", "AuthorizeServer\AuthorizeServer.csproj", "{EB21710C-AE5A-4C93-BEB1-522489F5D4BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web3.1", "Web3.1\Web3.1.csproj", "{4FE6438E-8D83-4D36-9574-A22A3D2C9871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +74,10 @@ Global
 		{EB21710C-AE5A-4C93-BEB1-522489F5D4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB21710C-AE5A-4C93-BEB1-522489F5D4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB21710C-AE5A-4C93-BEB1-522489F5D4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FE6438E-8D83-4D36-9574-A22A3D2C9871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FE6438E-8D83-4D36-9574-A22A3D2C9871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FE6438E-8D83-4D36-9574-A22A3D2C9871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FE6438E-8D83-4D36-9574-A22A3D2C9871}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{EF5B5F06-9379-4DB4-9DBA-4786E2FA2E44} = {3CE803FD-0DA8-4785-98CE-816F519FB9E0}
 		{FF6021F5-70F8-424F-973D-B03B6E7425BC} = {4BFC77E3-2BCF-4B1F-A56C-344FC0EA8BF5}
 		{EB21710C-AE5A-4C93-BEB1-522489F5D4BC} = {3CE803FD-0DA8-4785-98CE-816F519FB9E0}
+		{4FE6438E-8D83-4D36-9574-A22A3D2C9871} = {3CE803FD-0DA8-4785-98CE-816F519FB9E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F6997E6-752A-44B8-897B-18F9476C14C1}

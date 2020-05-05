@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MyWebApi.Core.EventBus;
+using MyWebApi.Event;
 using Serilog;
 
 namespace MyWebApi.Controllers
@@ -19,14 +21,17 @@ namespace MyWebApi.Controllers
     {
 
         private  readonly ILogger<ValuesController> _logger;
+        private readonly IEventPublish _eventPublish;
+        private readonly IEventSubscriptionManager _eventSubscription;
         /// <summary>
         /// 构造函数
         /// </summary>
 
-        public ValuesController(ILogger<ValuesController> logger)
+        public ValuesController(ILogger<ValuesController> logger,IEventPublish eventPublish,IEventSubscriptionManager eventSubscription )
         {
             _logger = logger;
-
+            _eventPublish = eventPublish;
+            _eventSubscription = eventSubscription;
         }
         /// <summary>
         /// GET api/values
@@ -81,6 +86,23 @@ namespace MyWebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("publish")]
+        public IActionResult Publish()
+        {
+            _eventPublish.Publish("test", new TestEvent());
+            return Ok();
+        }
+
+        [HttpGet("subscribe")]
+        public IActionResult Subscribe()
+        {
+            _eventSubscription.Subscribe<TestEvent, TestEventHandler>();
+            return Ok("add subscribe");
         }
     }
 }

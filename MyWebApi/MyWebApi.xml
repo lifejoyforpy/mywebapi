@@ -49,7 +49,7 @@
             ValuesController
             </summary>
         </member>
-        <member name="M:MyWebApi.Controllers.ValuesController.#ctor(Microsoft.Extensions.Logging.ILogger{MyWebApi.Controllers.ValuesController})">
+        <member name="M:MyWebApi.Controllers.ValuesController.#ctor(Microsoft.Extensions.Logging.ILogger{MyWebApi.Controllers.ValuesController},MyWebApi.Core.EventBus.IEventPublish,MyWebApi.Core.EventBus.IEventSubscriptionManager)">
             <summary>
             构造函数
             </summary>
@@ -84,6 +84,29 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="M:MyWebApi.Controllers.ValuesController.Publish">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MyWebApi.Event.TestEvent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:MyWebApi.Event.TestEventHandler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MyWebApi.Event.TestEventHandler.Hanlder(MyWebApi.Event.TestEvent)">
+            <summary>
+            
+            </summary>
+            <param name="event"></param>
+            <returns></returns>
+        </member>
         <member name="T:MyWebApi.Program">
             <summary>
             
@@ -94,8 +117,9 @@
             
             </summary>
             <param name="args"></param>
+            <returns></returns>
         </member>
-        <member name="M:MyWebApi.Program.CreateWebHostBuilder(System.String[])">
+        <member name="M:MyWebApi.Program.CreateHostBuilder(System.String[])">
             <summary>
             
             </summary>
@@ -103,11 +127,6 @@
             <returns></returns>
         </member>
         <member name="T:MyWebApi.Startup">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:MyWebApi.Startup.CURRENT_SWAGGER_OPTIONS">
             <summary>
             
             </summary>

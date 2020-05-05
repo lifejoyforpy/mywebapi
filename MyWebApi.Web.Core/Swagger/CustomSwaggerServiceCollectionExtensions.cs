@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace MyWebApi.Web.Core.Swagger
                 if (options.ApiVersions == null) return;
                 foreach (var version in options.ApiVersions)
                 {
-                    c.SwaggerDoc(version, new Info { Title = options.ProjectName, Version = version });
+                    c.SwaggerDoc(version, new OpenApiInfo { Title = options.ProjectName, Version = version });
                 }
                 c.OperationFilter<SwaggerDefaultValueFilter>();
                 options.AddSwaggerGenAction?.Invoke(c);
