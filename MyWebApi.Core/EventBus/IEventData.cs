@@ -11,15 +11,6 @@ namespace MyWebApi.Core.EventBus
     /// </summary>
     public interface IEventData
     {
-        /// <summary>
-        /// 事件id
-        /// </summary>
-        string EventId { get; set; }
-        /// <summary>
-        /// 事件源
-        /// </summary>
-        object EventSource { get; set; }
-
-        DateTimeOffset EventTime { get; set; }
+       
     }
 }

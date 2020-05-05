@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MyWebApi.Core.ConsulExtension;
+using MyWebApi.Core.EventBus;
+using MyWebApi.Core.EventBus.EventQueue;
+using MyWebApi.Core.EventBus.EventStore;
 using MyWebApi.EntityFramework;
 using MyWebApi.EntityFramework.UnitOfWork;
 using MyWebApi.Web.Core.Swagger;
@@ -124,6 +127,10 @@ namespace MyWebApi
             //});
             ////基于托管的后台任务的redis队列
             //services.AddHostedService<RedisListener>();
+
+            #region eventbus
+            services.AddEventBus();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
