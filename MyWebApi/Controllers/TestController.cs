@@ -27,7 +27,7 @@ namespace MyWebApi.Controllers
     /// 
     [Route("api/Test")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TestController : ControllerBase
     {
         private readonly  ILogger<TestController> _logger;
@@ -67,6 +67,7 @@ namespace MyWebApi.Controllers
         [HttpGet("get")]
         public IActionResult Get()
         {
+            _logger.LogInformation("Es Test");
             return Ok("AuthorizeServer");
         }
         /// <summary>
