@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MyWebApi.Application.Dtos.ProductDto;
 using System.Net;
 using System.Net.NetworkInformation;
+using Microsoft.AspNetCore.Http;
 
 namespace MyWebApi.Controllers
 {
@@ -45,20 +46,23 @@ namespace MyWebApi.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost("post")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public IActionResult Post(ProductCreation product)
-        {  
+        {
             //验证数据合法性
             if (product == null)
             {
                 return BadRequest();
             }
             //验证字段
-            if(!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                //insert
+                return CreatedAtRoute("", "", "'");
             }
-            //insert
-            return CreatedAtRoute("", "", "'");
+            return BadRequest(ModelState);
         }
         /// <summary>
         /// 
@@ -76,6 +80,8 @@ namespace MyWebApi.Controllers
         /// <returns></returns>
         [HttpGet("get/ip")]
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public IActionResult GetIp(NetworkInterfaceType type)
         {
             var netwrokInterfaces=  NetworkInterface.GetAllNetworkInterfaces();

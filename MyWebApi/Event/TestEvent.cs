@@ -24,7 +24,7 @@ namespace MyWebApi.Event
         /// </summary>
         /// <param name="event"></param>
         /// <returns></returns>
-        public Task Hanlder(TestEvent @event)
+        public override  Task Hanlder(TestEvent @event)
         {
             Console.WriteLine("asbb");
             return Task.CompletedTask;
